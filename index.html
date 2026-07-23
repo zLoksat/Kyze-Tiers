@@ -6,378 +6,237 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>PvP Ranked</title>
+<title>Kyze Tiers</title>
+
+<link rel="icon" type="image/png" href="imagens/logo.png">
 
 <link rel="stylesheet" href="style.css">
 
 </head>
 
-
 <body>
-
 
 <header>
 
 <div class="topbar">
 
-
 <h1>
     <img src="imagens/logo.png" class="logo">
 </h1>
 
-
 <div>
-
 
 <button id="adminLogin">
 Admin
 </button>
 
-
 <button id="testerLogin">
 Tester Login
 </button>
-
 
 <button id="adminButton" class="admin-add hidden">
 ⚙️
 </button>
 
-
 </div>
 
-
 </div>
-
 
 <img src="imagens/tierlist.png" class="tierlist-logo">
 
-
 <input id="search" placeholder="Pesquisar jogador...">
-
 
 </header>
 
-
-
-
-
 <nav id="modeTabs">
-
 
 <button onclick="trocarModo('Overall')">
 <img src="imagens/overall.png">
 <span>Overall</span>
 </button>
 
-
 <button onclick="trocarModo('Vanilla')">
 <img src="imagens/vanilla.png">
 <span>Vanilla</span>
 </button>
-
 
 <button onclick="trocarModo('Sword')">
 <img src="imagens/sword.png">
 <span>Sword</span>
 </button>
 
-
 <button onclick="trocarModo('SMP')">
 <img src="imagens/smp.png">
 <span>SMP</span>
 </button>
-
 
 <button onclick="trocarModo('NethPot')">
 <img src="imagens/neth_pot.png">
 <span>NethPot</span>
 </button>
 
-
 <button onclick="trocarModo('Diamond Pot')">
 <img src="imagens/pot.png">
 <span>Diamond Pot</span>
 </button>
-
 
 <button onclick="trocarModo('Mace')">
 <img src="imagens/mace.png">
 <span>Mace</span>
 </button>
 
-
 </nav>
 
-
-
-
-
-
 <main id="players">
-
 
 <section id="overallPage">
 
 <div id="overallList">
 
 <div class="empty">
-
 No players registered yet.
-
 </div>
 
 </div>
 
 </section>
-
-
-
-
 
 <section id="tierPage" class="hidden">
 
-
 <div id="tierGrid" class="tier-grid">
-
 
 </div>
 
-
 </section>
-
 
 </main>
 
-
-
-
-
-
-
-
-
 <!-- LOGIN ADMIN -->
-
 
 <div class="overlay hidden" id="loginBox">
 
-
 <div class="modal">
 
-
 <h2>Admin Login</h2>
-
 
 <label>Senha</label>
 
 <input id="password" type="password">
 
-
-
 <div class="buttons">
-
 
 <button class="cancel" onclick="closeLogin()">
 Cancelar
 </button>
 
-
 <button class="add" onclick="login()">
 Entrar
 </button>
 
+</div>
 
 </div>
 
-
 </div>
-
-
-</div>
-
-
-
-
-
 
 <!-- LOGIN TESTER -->
 
-
 <div class="overlay hidden" id="testerBox">
-
 
 <div class="modal">
 
-
 <h2>Tester Login</h2>
-
 
 <label>Senha</label>
 
-
 <input id="testerPassword" type="password">
 
-
-
 <div class="buttons">
-
 
 <button class="cancel" onclick="closeTester()">
 Cancelar
 </button>
 
-
 <button class="add" onclick="loginTester()">
 Entrar
 </button>
 
+</div>
 
 </div>
 
-
 </div>
-
-
-</div>
-
-
-
-
-
-
-
 
 <!-- ADMIN PANEL -->
 
-
 <div class="overlay hidden" id="adminPanel">
-
 
 <div class="modal">
 
-
 <h2>⚙ Admin Panel</h2>
-
-
 
 <button class="admin-option" onclick="openAdd()">
 ➕ Adicionar Player
 </button>
 
-
-
 <button class="admin-option" onclick="removerPlayer()">
 🗑️ Remover Player
 </button>
-
-
 
 <button class="admin-option" onclick="renomearPlayer()">
 ✏️ Renomear Player
 </button>
 
-
-
-
-
 <div class="buttons">
-
 
 <button class="cancel" onclick="closeAdmin()">
 Fechar
 </button>
 
+</div>
 
 </div>
 
-
 </div>
-
-
-</div>
-
-
-
-
-
-
-
-
 
 <!-- ADD PLAYER -->
 
-
 <div class="overlay hidden" id="addBox">
-
 
 <div class="modal">
 
-
 <h2>Add Player</h2>
-
-
-
 
 <label>Nick</label>
 
 <input id="nick">
 
-
-
-
-
 <label>Region</label>
-
 
 <select id="region">
 
-
 <option>SA</option>
-
 <option>NA</option>
-
 <option>EU</option>
 
-
 </select>
-
-
-
-
-
 
 <label>Mode</label>
 
-
 <select id="mode">
 
-
 <option>Vanilla</option>
-
 <option>Sword</option>
-
 <option>SMP</option>
-
 <option>NethPot</option>
-
 <option>Diamond Pot</option>
-
 <option>Mace</option>
-
 
 </select>
 
-
-
-
-
-
 <label>Tier</label>
 
-
 <select id="tier">
-
 
 <option>HT1</option>
 <option>LT1</option>
@@ -390,48 +249,32 @@ Fechar
 <option>HT5</option>
 <option>LT5</option>
 
-
 </select>
 
-
-
-
-
-
-
 <div class="buttons">
-
 
 <button class="cancel" onclick="closeAdd()">
 Cancelar
 </button>
 
-
 <button class="add" onclick="adicionarPlayer()">
 Adicionar
 </button>
 
+</div>
 
 </div>
 
-
 </div>
 
-
-</div>
-
-
-<a href="https://discord.gg/Ht6252fqVN" target="_blank" class="discord-button">
-
+<a href="https://discord.gg/ZrA65BxN5E" target="_blank" class="discord-button">
     <img src="imagens/discord.png">
-
 </a>
 
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
 
 const firebaseConfig = {
 
@@ -451,19 +294,13 @@ const firebaseConfig = {
 
 };
 
-
 const app = initializeApp(firebaseConfig);
-
 
 window.db = getFirestore(app);
 
-
 </script>
-
 
 <script type="module" src="script.js"></script>
 
-
 </body>
-
 </html>
