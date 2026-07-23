@@ -427,8 +427,41 @@ Adicionar
 
 </a>
 
+<script type="module">
 
-<script src="script.js"></script>
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyCgIorNBMGFYyV0UTK_FB3_IMIPrsFTleo",
+
+    authDomain: "kyze-tiers.firebaseapp.com",
+
+    projectId: "kyze-tiers",
+
+    storageBucket: "kyze-tiers.firebasestorage.app",
+
+    messagingSenderId: "712061568859",
+
+    appId: "1:712061568859:web:6f99a071b46cfc77aa3c7e",
+
+    measurementId: "G-XM9K4M21DK"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+
+window.db = getFirestore(app);
+
+
+</script>
+
+
+<script type="module" src="script.js"></script>
 
 
 </body>

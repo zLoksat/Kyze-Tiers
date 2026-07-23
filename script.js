@@ -1,12 +1,20 @@
-const senhaAdmin = "RankedPvP67@";
+import {
+    collection,
+    getDocs,
+    addDoc,
+    deleteDoc,
+    doc,
+    updateDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
+
+const senhaAdmin = "RankedPvP67@";
 const senhaTester = "TesterPvP67@";
 
 
 let tipoUsuario = "";
 
 let modoAtual = "Overall";
-
 
 
 const tierPoints = {
@@ -30,8 +38,6 @@ const tierPoints = {
 
 
 
-
-
 const modeIcons = {
 
     Vanilla:"imagens/vanilla.png",
@@ -50,48 +56,73 @@ const modeIcons = {
 
 
 
-
-
-
-
 const loginBox=document.getElementById("loginBox");
-
 const testerBox=document.getElementById("testerBox");
-
 const addBox=document.getElementById("addBox");
-
 const adminPanel=document.getElementById("adminPanel");
 
 
-
 const adminLogin=document.getElementById("adminLogin");
-
 const testerLogin=document.getElementById("testerLogin");
-
 const adminButton=document.getElementById("adminButton");
 
 
-
 const overallPage=document.getElementById("overallPage");
-
 const tierPage=document.getElementById("tierPage");
 
 
-
 const overallList=document.getElementById("overallList");
-
 const tierGrid=document.getElementById("tierGrid");
-
 
 
 const search=document.getElementById("search");
 
 
 
+const db = window.db;
+
+
+
+// =========================
+// FIRESTORE
+// =========================
+
+
+async function carregarPlayers(){
+
+    let players=[];
+
+
+    const snapshot = await getDocs(
+        collection(db,"players")
+    );
+
+
+    snapshot.forEach((item)=>{
+
+
+        players.push({
+
+            id:item.id,
+
+            ...item.data()
+
+        });
+    console.log(players);
+
+    });
+
+
+    return players;
+
+}
 
 
 
 
+// =========================
+// LOGIN ADMIN
+// =========================
 
 
 adminLogin.onclick=function(){
@@ -102,15 +133,11 @@ adminLogin.onclick=function(){
 
 
 
-
-
 function closeLogin(){
 
     loginBox.classList.add("hidden");
 
 }
-
-
 
 
 
@@ -150,8 +177,9 @@ function login(){
 
 
 
-
-
+// =========================
+// LOGIN TESTER
+// =========================
 
 
 testerLogin.onclick=function(){
@@ -162,16 +190,11 @@ testerLogin.onclick=function(){
 
 
 
-
-
 function closeTester(){
 
     testerBox.classList.add("hidden");
 
 }
-
-
-
 
 
 
@@ -197,7 +220,6 @@ function loginTester(){
         adminButton.classList.remove("hidden");
 
 
-
         closeTester();
 
 
@@ -215,20 +237,11 @@ function loginTester(){
 
 
 
-
-
-
-
-
 adminButton.onclick=function(){
 
     adminPanel.classList.remove("hidden");
 
 };
-
-
-
-
 
 
 
@@ -241,16 +254,15 @@ function closeAdmin(){
 
 
 
-
-
-
+// =========================
+// TROCAR MODO
+// =========================
 
 
 function trocarModo(modo){
 
 
     modoAtual=modo;
-
 
 
     if(modo==="Overall"){
@@ -283,9 +295,9 @@ function trocarModo(modo){
 
 
 
-
-
-
+// =========================
+// ADICIONAR
+// =========================
 
 
 function openAdd(){
@@ -307,15 +319,11 @@ function openAdd(){
 
         tier.innerHTML=`
 
-        <option>LT3</option>
-
-        <option>HT4</option>
-
-        <option>LT4</option>
-
-        <option>HT5</option>
-
         <option>LT5</option>
+        <option>HT5</option>
+        <option>LT4</option>
+        <option>HT4</option>
+        <option>LT3</option>
 
         `;
 
@@ -325,25 +333,16 @@ function openAdd(){
 
         tier.innerHTML=`
 
-        <option>HT1</option>
-
-        <option>LT1</option>
-
-        <option>HT2</option>
-
-        <option>LT2</option>
-
-        <option>HT3</option>
-
-        <option>LT3</option>
-
-        <option>HT4</option>
-
-        <option>LT4</option>
-
-        <option>HT5</option>
-
         <option>LT5</option>
+        <option>HT5</option>
+        <option>LT4</option>
+        <option>HT4</option>
+        <option>LT3</option>
+        <option>HT3</option>
+        <option>LT2</option>
+        <option>HT2</option>
+        <option>LT1</option>
+        <option>HT1</option>
 
         `;
 
@@ -351,7 +350,11 @@ function openAdd(){
     }
 
 
-}function closeAdd(){
+}
+
+
+
+function closeAdd(){
 
     addBox.classList.add("hidden");
 
@@ -359,11 +362,7 @@ function openAdd(){
 
 
 
-
-
-
-
-function adicionarPlayer(){
+async function adicionarPlayer(){
 
 
     let nick=document.getElementById("nick").value.trim();
@@ -386,36 +385,37 @@ function adicionarPlayer(){
 
 
 
-
     if(tipoUsuario==="tester"){
 
-        if(
-            tier!=="LT3" &&
-            tier!=="HT4" &&
-            tier!=="LT4" &&
-            tier!=="HT5" &&
-            tier!=="LT5"
-        ){
 
-            alert("Testers só podem adicionar LT3, LT4 e LT5!");
+        let permitidos=[
+            "LT5",
+            "HT5",
+            "LT4",
+            "HT4",
+            "LT3"
+        ];
+
+
+        if(!permitidos.includes(tier)){
+
+
+            alert("Testers só podem adicionar LT5 até LT3!");
 
             return;
 
         }
 
+
     }
 
 
 
+    let players = await carregarPlayers();
 
 
 
-
-    let players=JSON.parse(localStorage.getItem("players")) || [];
-
-
-
-    let player=players.find(p=>
+    let player = players.find(p=>
 
         p.nick.toLowerCase()===nick.toLowerCase()
 
@@ -423,80 +423,88 @@ function adicionarPlayer(){
 
 
 
+    if(player){
 
 
-    if(!player){
+        let novoModes=[...player.modes];
 
 
-        player={
+        let existente=novoModes.find(m=>
 
-            nick:nick,
+            m.mode===mode
 
-            region:region,
-
-            modes:[]
-
-        };
-
-
-        players.push(player);
-
-
-    }
+        );
 
 
 
+        if(existente){
+
+            existente.tier=tier;
+
+        }else{
+
+            novoModes.push({
+
+                mode:mode,
+
+                tier:tier
+
+            });
+
+        }
 
 
 
+        await updateDoc(
 
-    let modeExistente=player.modes.find(m=>
+            doc(db,"players",player.id),
 
-        m.mode===mode
+            {
 
-    );
+                modes:novoModes,
 
+                region:region
 
+            }
 
-
-    if(modeExistente){
-
-
-        modeExistente.tier=tier;
+        );
 
 
     }else{
 
 
-        player.modes.push({
+        await addDoc(
 
-            mode:mode,
+            collection(db,"players"),
 
-            tier:tier
+            {
 
-        });
+                nick:nick,
+
+                region:region,
+
+                modes:[
+
+                    {
+
+                        mode:mode,
+
+                        tier:tier
+
+                    }
+
+                ]
+
+            }
+
+        );
 
 
     }
 
 
 
-
-
-
-    localStorage.setItem(
-
-        "players",
-
-        JSON.stringify(players)
-
-    );
-
-
-
     closeAdd();
-
-
 
 
     if(modoAtual==="Overall")
@@ -508,18 +516,12 @@ function adicionarPlayer(){
         mostrarTiers();
 
 
-}
+}// =========================
+// REMOVER PLAYER
+// =========================
 
 
-
-
-
-
-
-
-
-
-function removerPlayer(){
+async function removerPlayer(){
 
 
     let nick=prompt("Nick para remover:");
@@ -528,23 +530,31 @@ function removerPlayer(){
 
 
 
-    let players=JSON.parse(localStorage.getItem("players")) || [];
+    let players=await carregarPlayers();
 
 
 
-    players=players.filter(p=>
+    let player=players.find(p=>
 
-        p.nick.toLowerCase()!==nick.toLowerCase()
+        p.nick.toLowerCase()===nick.toLowerCase()
 
     );
 
 
 
-    localStorage.setItem(
+    if(!player){
 
-        "players",
+        alert("Jogador não encontrado!");
 
-        JSON.stringify(players)
+        return;
+
+    }
+
+
+
+    await deleteDoc(
+
+        doc(db,"players",player.id)
 
     );
 
@@ -559,13 +569,12 @@ function removerPlayer(){
 
 
 
+// =========================
+// RENOMEAR PLAYER
+// =========================
 
 
-
-
-
-
-function renomearPlayer(){
+async function renomearPlayer(){
 
 
     let antigo=prompt("Nick atual:");
@@ -578,7 +587,7 @@ function renomearPlayer(){
 
 
 
-    let players=JSON.parse(localStorage.getItem("players")) || [];
+    let players=await carregarPlayers();
 
 
 
@@ -590,19 +599,25 @@ function renomearPlayer(){
 
 
 
-    if(player){
+    if(!player){
 
-        player.nick=novo;
+        alert("Jogador não encontrado!");
+
+        return;
 
     }
 
 
 
-    localStorage.setItem(
+    await updateDoc(
 
-        "players",
+        doc(db,"players",player.id),
 
-        JSON.stringify(players)
+        {
+
+            nick:novo
+
+        }
 
     );
 
@@ -617,8 +632,9 @@ function renomearPlayer(){
 
 
 
-
-
+// =========================
+// PONTOS
+// =========================
 
 
 function calcularPontos(player){
@@ -649,14 +665,15 @@ function calcularPontos(player){
 
 
 
+// =========================
+// OVERALL
+// =========================
 
 
+async function mostrarOverall(){
 
 
-function mostrarOverall(){
-
-
-    let players=JSON.parse(localStorage.getItem("players")) || [];
+    let players=await carregarPlayers();
 
 
 
@@ -666,7 +683,9 @@ function mostrarOverall(){
 
     players=players.filter(p=>
 
+
         p.nick.toLowerCase().includes(busca)
+
 
     );
 
@@ -676,7 +695,9 @@ function mostrarOverall(){
 
     players.sort((a,b)=>
 
+
         calcularPontos(b)-calcularPontos(a)
+
 
     );
 
@@ -690,8 +711,8 @@ function mostrarOverall(){
 
 
 
-
     if(players.length===0){
+
 
 
         overallList.innerHTML=`
@@ -709,6 +730,7 @@ function mostrarOverall(){
 
 
     }
+
 
 
 
@@ -758,8 +780,6 @@ function mostrarOverall(){
 
 
 
-
-
         overallList.innerHTML+=`
 
 
@@ -776,6 +796,7 @@ function mostrarOverall(){
                 </strong>
 
 
+
                 <img class="avatar"
 
                 src="https://mc-heads.net/avatar/${player.nick}/70">
@@ -786,11 +807,15 @@ function mostrarOverall(){
 
 
 
+
+
             <span class="nick">
 
             ${player.nick}
 
             </span>
+
+
 
 
 
@@ -805,11 +830,14 @@ function mostrarOverall(){
 
 
 
+
             <span class="points">
 
             ${calcularPontos(player)} pts
 
             </span>
+
+
 
 
 
@@ -835,22 +863,15 @@ function mostrarOverall(){
     });
 
 
-}
+}// =========================
+// TIERS
+// =========================
 
 
+async function mostrarTiers(){
 
 
-
-
-
-
-
-
-
-function mostrarTiers(){
-
-
-    let players=JSON.parse(localStorage.getItem("players")) || [];
+    let players=await carregarPlayers();
 
 
 
@@ -872,14 +893,14 @@ function mostrarTiers(){
 
 
 
-
-
     players.forEach(player=>{
 
 
         let mode=player.modes.find(m=>
 
+
             m.mode===modoAtual
+
 
         );
 
@@ -897,16 +918,17 @@ function mostrarTiers(){
 
         tiers[numero].push({
 
+
             nick:player.nick,
 
             tier:mode.tier
+
 
         });
 
 
 
     });
-
 
 
 
@@ -930,7 +952,6 @@ function mostrarTiers(){
 
 
 
-
         let html=`
 
 
@@ -938,21 +959,20 @@ function mostrarTiers(){
 
 
 
-        <div class="tier-title tier-${i}">
+            <div class="tier-title tier-${i}">
 
 
-            <img src="imagens/tier${i}.png">
+                <img src="imagens/tier${i}.png">
 
 
-            <span>
+                <span>
 
-            Tier ${i}
+                Tier ${i}
 
-            </span>
+                </span>
 
 
-        </div>
-
+            </div>
 
 
         `;
@@ -963,9 +983,7 @@ function mostrarTiers(){
 
 
 
-
         tiers[i].forEach(player=>{
-
 
 
             html+=`
@@ -1002,8 +1020,8 @@ function mostrarTiers(){
             `;
 
 
-        });
 
+        });
 
 
 
@@ -1028,6 +1046,9 @@ function mostrarTiers(){
 
 
 
+// =========================
+// PESQUISA
+// =========================
 
 
 search.addEventListener("input",()=>{
@@ -1035,9 +1056,12 @@ search.addEventListener("input",()=>{
 
     if(modoAtual==="Overall")
 
+
         mostrarOverall();
 
+
     else
+
 
         mostrarTiers();
 
@@ -1050,4 +1074,20 @@ search.addEventListener("input",()=>{
 
 
 
+// =========================
+// INICIAR
+// =========================
+
+
 mostrarOverall();
+window.login = login;
+window.closeLogin = closeLogin;
+window.loginTester = loginTester;
+window.closeTester = closeTester;
+window.openAdd = openAdd;
+window.closeAdd = closeAdd;
+window.closeAdmin = closeAdmin;
+window.trocarModo = trocarModo;
+window.adicionarPlayer = adicionarPlayer;
+window.removerPlayer = removerPlayer;
+window.renomearPlayer = renomearPlayer;
