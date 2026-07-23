@@ -1,0 +1,937 @@
+* {
+
+    box-sizing:border-box;
+
+    font-family:"Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+}
+
+
+
+body {
+
+    margin:0;
+
+    background:#000000;
+
+    color:white;
+
+}
+
+
+
+header {
+
+    padding:30px 40px;
+
+}
+
+
+
+.topbar {
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+
+
+.logo {
+
+    width:100px;
+
+    height:auto;
+
+}
+
+
+
+.tierlist-logo {
+
+    display:block;
+
+    margin:20px auto;
+
+    width:350px;
+
+    max-width:80%;
+
+}
+
+
+
+button,
+input,
+select,
+option,
+span,
+b,
+strong,
+h1,
+h2,
+h3,
+p {
+
+    font-family:"Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+}
+
+
+
+
+
+#adminLogin,
+#testerLogin {
+
+    background:#000000;
+
+    color:white;
+
+    border:1px solid #03c4ff;
+
+    padding:12px 18px;
+
+    border-radius:10px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    box-shadow:0 0 8px #03c4ff;
+
+}
+
+
+
+#adminLogin:hover,
+#testerLogin:hover {
+
+    background:#03c4ff;
+
+    color:black;
+
+}
+
+
+
+.admin-add {
+
+    width:42px;
+
+    height:42px;
+
+    background:#03c4ff;
+
+    color:white;
+
+    border:none;
+
+    border-radius:10px;
+
+    font-size:22px;
+
+}
+
+
+
+.hidden {
+
+    display:none!important;
+
+}
+
+
+
+
+
+
+#search {
+
+    display:block;
+
+    margin:25px auto;
+
+    width:350px;
+
+    max-width:90%;
+
+    padding:14px;
+
+    background:#000000;
+
+    color:white;
+
+    border:1px solid #03c4ff;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    box-shadow:0 0 8px #03c4ff;
+
+}
+
+
+
+#search::placeholder {
+
+    color:white;
+
+    opacity:.8;
+
+}
+
+
+
+
+
+
+#modeTabs {
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+}
+
+
+
+#modeTabs button {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    background:#000000;
+
+    color:white;
+
+    border:1px solid #03c4ff;
+
+    border-radius:12px;
+
+    padding:10px 16px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    box-shadow:0 0 8px #03c4ff;
+
+}
+
+
+
+#modeTabs button:hover {
+
+    background:#03c4ff;
+
+    color:black;
+
+}
+
+
+
+#modeTabs img {
+
+    width:32px;
+
+    height:32px;
+
+    object-fit:contain;
+
+    image-rendering:pixelated;
+
+}
+
+
+
+
+main {
+
+    width:95%;
+
+    margin:35px auto;
+
+}
+
+
+
+
+/* OVERALL */
+
+
+.overall-player {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    background:#000000;
+
+    border:1px solid #03c4ff;
+
+    border-radius:15px;
+
+    margin-bottom:12px;
+
+    overflow:hidden;
+
+    min-height:90px;
+
+    box-shadow:0 0 8px #03c4ff;
+
+}
+
+
+
+
+.player-rank-box {
+
+    width:230px;
+
+    height:90px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding-left:20px;
+
+}
+
+
+
+.overall-player.rank-1 .player-rank-box {
+
+    background:#eab308;
+
+}
+
+
+
+.overall-player.rank-2 .player-rank-box {
+
+    background:#94a3b8;
+
+}
+
+
+
+.overall-player.rank-3 .player-rank-box {
+
+    background:#b45309;
+
+}
+
+
+
+.overall-player:not(.rank-1):not(.rank-2):not(.rank-3) .player-rank-box {
+
+    background:#182235;
+
+}.overall-player strong {
+
+    font-size:32px;
+
+    font-weight:900;
+
+    font-style:italic;
+
+}
+
+
+
+.avatar {
+
+    width:70px;
+
+    height:70px;
+
+    image-rendering:pixelated;
+
+}
+
+
+
+.nick {
+
+    font-size:22px;
+
+    font-weight:700;
+
+    width:180px;
+
+}
+
+
+
+.region {
+
+    background:#000000;
+
+    color:white;
+
+    padding:6px 12px;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+    font-weight:700;
+
+}
+
+
+
+.points {
+
+    color:#03c4ff;
+
+    font-size:18px;
+
+    font-weight:800;
+
+}
+
+
+
+.overall-modes {
+
+    display:flex;
+
+    gap:12px;
+
+    margin-left:auto;
+
+    padding-right:20px;
+
+}
+
+
+
+.overall-mode {
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    min-width:45px;
+
+}
+
+
+
+.overall-mode img {
+
+    width:35px;
+
+    height:35px;
+
+    image-rendering:pixelated;
+
+}
+
+
+
+.overall-mode span {
+
+    font-size:14px;
+
+}
+
+
+
+.tier-color {
+
+    font-weight:800;
+
+}
+
+
+
+.tier-HT1,
+.tier-LT1 {
+
+    color:#facc15!important;
+
+}
+
+
+
+.tier-HT2,
+.tier-LT2 {
+
+    color:#cbd5e1!important;
+
+}
+
+
+
+.tier-HT3,
+.tier-LT3 {
+
+    color:#cd7f32!important;
+
+}
+
+
+
+.tier-HT4,
+.tier-LT4,
+.tier-HT5,
+.tier-LT5 {
+
+    color:#64748b!important;
+
+}
+
+
+
+
+
+
+/* TIERS */
+
+
+.tier-grid {
+
+    display:grid;
+
+    grid-template-columns:repeat(5,1fr);
+
+    gap:12px;
+
+}
+
+
+
+.tier-column {
+
+    background:#4e4e4e;
+
+    border:1px solid #03c4ff;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    box-shadow:0 0 8px #03c4ff;
+
+}
+
+
+
+.tier-title {
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:15px;
+
+    background:#182235;
+
+    font-size:26px;
+
+    font-weight:800;
+
+}
+
+
+
+.tier-title img {
+
+    width:35px;
+
+    height:35px;
+
+    image-rendering:pixelated;
+
+}
+
+
+
+.tier-title.tier-1 {
+
+    background:#4b3b13;
+
+    color:#facc15;
+
+}
+
+
+
+.tier-title.tier-2 {
+
+    background:#3b4152;
+
+    color:#e2e8f0;
+
+}
+
+
+
+.tier-title.tier-3 {
+
+    background:#4a3024;
+
+    color:#d97706;
+
+}
+
+
+
+.tier-player {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    height:50px;
+
+    padding:5px 10px;
+
+    background:#4e4e4e;
+
+    border-bottom:1px solid #03c4ff;
+
+}
+
+
+
+.tier-player:hover {
+
+    background:#243044;
+
+}
+
+
+
+.tier-player img {
+
+    width:38px;
+
+    height:38px;
+
+    image-rendering:pixelated;
+
+}
+
+
+
+.tier-player span {
+
+    flex:1;
+
+}
+
+
+
+
+
+/* EMPTY */
+
+
+.empty {
+
+    background:#000000;
+
+    border:1px solid #03c4ff;
+
+    border-radius:15px;
+
+    padding:50px;
+
+    text-align:center;
+
+    color:white;
+
+    font-weight:600;
+
+    box-shadow:0 0 8px #03c4ff;
+
+}
+
+
+
+
+
+
+
+/* MODAIS */
+
+
+.overlay {
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.75);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+
+
+.modal {
+
+    width:430px;
+
+    max-width:90%;
+
+    background:#151d2b;
+
+    border:1px solid #03c4ff;
+
+    border-radius:16px;
+
+    padding:30px;
+
+    box-shadow:0 0 15px #03c4ff;
+
+}
+
+
+
+.modal input,
+.modal select {
+
+    width:100%;
+
+    padding:13px;
+
+    margin-top:8px;
+
+    margin-bottom:15px;
+
+    background:#080d16;
+
+    color:white;
+
+    border:1px solid #03c4ff;
+
+    border-radius:8px;
+
+}
+
+
+
+
+
+.buttons {
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:10px;
+
+}
+
+
+
+.buttons button {
+
+    padding:12px 20px;
+
+    border-radius:10px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+}
+
+
+
+.cancel {
+
+    background:#151d2b;
+
+    color:white;
+
+    border:1px solid #03c4ff;
+
+}
+
+
+
+.add {
+
+    background:#03c4ff;
+
+    color:black;
+
+    border:none;
+
+}
+
+
+
+
+
+
+.admin-option {
+
+    width:100%;
+
+    margin-top:15px;
+
+    padding:14px;
+
+    background:#182235;
+
+    color:white;
+
+    border:1px solid #03c4ff;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+}
+
+
+
+.admin-option:hover {
+
+    background:#03c4ff;
+
+    color:black;
+
+}
+
+
+
+
+
+@media(max-width:1200px){
+
+    .tier-grid {
+
+        grid-template-columns:repeat(3,1fr);
+
+    }
+
+}
+
+
+
+@media(max-width:700px){
+
+
+    .tier-grid {
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .overall-player {
+
+        flex-wrap:wrap;
+
+    }
+
+
+    .player-rank-box {
+
+        width:100%;
+
+    }
+
+
+}.discord-button {
+
+    position:fixed;
+
+    right:25px;
+
+    bottom:25px;
+
+    width:60px;
+
+    height:60px;
+
+    background:#5865F2;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    box-shadow:0 0 15px #5865F2;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+
+.discord-button:hover {
+
+    transform:scale(1.1);
+
+    box-shadow:0 0 25px #5865F2;
+
+}
+
+
+.discord-button img {
+
+    width:35px;
+
+    height:35px;
+
+    object-fit:contain;
+
+}
